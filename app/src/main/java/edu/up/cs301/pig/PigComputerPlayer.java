@@ -28,7 +28,23 @@ public class PigComputerPlayer extends GameComputerPlayer {
      */
     @Override
     protected void receiveInfo(GameInfo info) {
-        // TODO  You will implement this method
+        if( info instanceof PigGameState) {
+            PigGameState state = (PigGameState)(info);
+            if (playerNum != state.getpTurn()) {
+                //do nothing
+                return;
+            }
+
+            int choice = (int) (Math.random() * 2);
+            //AI Holds
+            if (choice == 0) {
+                game.sendAction(new PigHoldAction(this));
+            }
+            //AI Rolls
+            else {
+                game.sendAction(new PigRollAction(this));
+            }
+        }
     }//receiveInfo
 
 }

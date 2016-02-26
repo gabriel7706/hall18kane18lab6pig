@@ -8,6 +8,9 @@ import edu.up.cs301.game.infoMsg.GameInfo;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -60,7 +63,19 @@ public class PigHumanPlayer extends GameHumanPlayer implements OnClickListener {
      */
     @Override
     public void receiveInfo(GameInfo info) {
+
         //TODO You will implement this method to receive state objects from the game
+        PigGameState state = (PigGameState)(info);
+        if (playerNum != state.getpTurn()) {
+            //flash screen and return
+            this.flash(0xFFFFFFFF,500);
+            return;
+        }
+
+        playerScoreTextView.setText(state.getP0Score());
+        oppScoreTextView.setText(state.getP1Score());
+        turnTotalTextView.setText(state.getRunningTot());
+        //messageTextView
     }//receiveInfo
 
     /**
